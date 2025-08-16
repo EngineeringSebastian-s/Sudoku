@@ -33,7 +33,7 @@ public class SudokuController {
     @GetMapping("/{size}/resolver")
     public String solveSudoku(@PathVariable("size") int size, Model model) {
         int[] rc = sudokuService.calculateSegmentRC(size);
-        String[][] board = sudokuService.generateSolvedBoard(size);
+        String[][] board = sudokuService.generateSolvedBoard(size, rc[0], rc[1]);
 
         model.addAttribute("size", size);
         model.addAttribute("rows", size);
