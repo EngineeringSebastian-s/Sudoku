@@ -27,6 +27,6 @@ public class SudokuController {
         model.addAttribute("c", rc[1]);
         model.addAttribute("board", board);
 
-        return "sudoku/board";
+        return "board";
     }
 }
