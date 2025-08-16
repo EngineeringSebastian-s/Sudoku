@@ -7,7 +7,7 @@ spring:
 # Información de la aplicación
 application:
   # Autor de la aplicación
-  author: Sebastian Lopez Osorno & Esteban
+  author: Sebastian Lopez Osorno & Esteban Cano
   # Título de la aplicación
   title: Sudoku Solver
   # Versión de la aplicación
