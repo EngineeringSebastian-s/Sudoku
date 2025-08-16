@@ -19,10 +19,10 @@
             <option value="25" th:selected="${size == 25}">25 × 25</option>
         </select>
 
-        <label for="r">Segmento r×c:</label>
-        <input id="r" type="number" min="1" value="3" style="width:64px" />
+        <span>Segmento r×c:</span>
+        <label for="r"></label><input id="r" type="number" min="1" th:value="${r}" class="segment-input" />
         <span style="opacity:.7">×</span>
-        <input id="c" type="number" min="1" value="3" style="width:64px" />
+        <label for="c"></label><input id="c" type="number" min="1" th:value="${c}" class="segment-input" />
 
         <button id="build">Crear tablero</button>
         <button id="clear">Limpiar</button>

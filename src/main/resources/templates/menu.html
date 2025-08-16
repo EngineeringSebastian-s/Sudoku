@@ -15,134 +15,21 @@
         <label for="size">Tamaño:</label>
         <select id="size">
             <option value="4">4 × 4</option>
-            <option value="9" selected>9 × 9</option>
+            <option value="9">9 × 9</option>
             <option value="16">16 × 16</option>
             <option value="25">25 × 25</option>
         </select>
-
-        <label for="r">Segmento r×c:</label>
-        <input id="r" type="number" min="1" value="3" style="width:64px" />
-        <span style="opacity:.7">×</span>
-        <input id="c" type="number" min="1" value="3" style="width:64px" />
-
-        <button id="autoRC">Calcular r×c</button>
         <button id="build">Crear tablero</button>
-        <button id="clear">Limpiar</button>
-    </div>
-
-    <div id="board" class="board" aria-label="Tablero de Sudoku">
-
     </div>
 </div>
 
 <script>
-    // Dev helpers simples para futuro llenado:
-    // setCell( fila, col, valor ) y getCell( fila, col )
-    function setCell(r, c, val){
-        const el = document.getElementById(`cell-${r}-${c}`);
-        if (el) el.value = val ?? '';
-    }
-    function getCell(r, c){
-        const el = document.getElementById(`cell-${r}-${c}`);
-        return el ? el.value : null;
-    }
-
-    // Elegir r×c automáticamente:
-    // - Si N es cuadrado perfecto, r=c=√N.
-    // - Si no, r = mayor divisor ≤ √N, c = N/r.
-    function autoRCFor(n){
-        const root = Math.floor(Math.sqrt(n));
-        if (root * root === n) return { r: root, c: root };
-        for (let d = root; d >= 2; d--){
-            if (n % d === 0) return { r: d, c: n / d };
-        }
-        // fallback: 1 × N (no ideal, pero válido para pintar segmentos)
-        return { r: 1, c: n };
-    }
-
-    // Construir tablero con N, r, c
-    function buildBoard(n, r, c){
-        const board = document.getElementById('board');
-        board.innerHTML = '';
-        board.style.setProperty('--n', n);
-
-        // Crear N×N celdas con ids determinísticos para fácil llenado
-        for (let i = 0; i < n; i++){
-            for (let j = 0; j < n; j++){
-                const cell = document.createElement('div');
-                cell.className = 'cell';
-
-                // Líneas gruesas de segmentos:
-                // Bordes superiores en filas 0, r, 2r,...
-                if (i % r === 0) cell.classList.add('seg-top');
-                // Bordes izquierdos en columnas 0, c, 2c,...
-                if (j % c === 0) cell.classList.add('seg-left');
-                // Bordes derechos donde termina el bloque
-                if (j % c === c - 1) cell.classList.add('seg-right');
-                // Bordes inferiores donde termina el bloque
-                if (i % r === r - 1) cell.classList.add('seg-bottom');
-
-                // Asegurar marco exterior (por si r/c no caen al final exacto)
-                if (i === n - 1) cell.classList.add('seg-bottom');
-                if (j === n - 1) cell.classList.add('seg-right');
-
-                // Input
-                const inp = document.createElement('input');
-                inp.type = 'text';
-                inp.inputMode = 'numeric';       // móviles muestran teclado numérico
-                inp.maxLength = n >= 10 ? 2 : 1; // 32 requiere hasta 2 caracteres si usas números
-                inp.id = `cell-${i+1}-${j+1}`;   // 1-index para que sea natural en bucles
-                inp.dataset.row = String(i+1);
-                inp.dataset.col = String(j+1);
-
-                cell.appendChild(inp);
-                board.appendChild(cell);
-            }
-        }
-    }
-
-    // UI wiring
     const sizeSel = document.getElementById('size');
-    const rInp = document.getElementById('r');
-    const cInp = document.getElementById('c');
     const buildBtn = document.getElementById('build');
-    const autoBtn = document.getElementById('autoRC');
-    const clearBtn = document.getElementById('clear');
-
-    autoBtn.addEventListener('click', () => {
-        const n = parseInt(sizeSel.value, 10);
-        const { r, c } = autoRCFor(n);
-        rInp.value = r;
-        cInp.value = c;
-        buildBoard(n, r, c);
-    });
-
     buildBtn.addEventListener('click', () => {
         const n = parseInt(sizeSel.value, 10);
-        let r = parseInt(rInp.value, 10);
-        let c = parseInt(cInp.value, 10);
-        if (!r || !c || r*c !== n){
-            const auto = autoRCFor(n);
-            r = auto.r; c = auto.c;
-            rInp.value = r; cInp.value = c;
-        }
-        buildBoard(n, r, c);
+        window.location.href = `/sudoku/${n}`;
     });
-
-    clearBtn.addEventListener('click', () => {
-        const n = parseInt(sizeSel.value, 10);
-        const r = parseInt(rInp.value, 10);
-        const c = parseInt(cInp.value, 10);
-        buildBoard(n, r, c);
-    });
-
-    // Construcción inicial (9×9 → 3×3)
-    (function init(){
-        const n = parseInt(sizeSel.value, 10);
-        const { r, c } = autoRCFor(n);
-        rInp.value = r; cInp.value = c;
-        buildBoard(n, r, c);
-    })();
 </script>
 </body>
 </html>

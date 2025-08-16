@@ -75,3 +75,13 @@ body {
 .cell:focus-within {
     background: #202020;
 }
+
+/* Estilos para los inputs de r y c */
+.segment-input {
+    width: 64px;
+}
+
+/* Estilo para el símbolo de multiplicación */
+.segment-multiplier {
+    opacity: .7;
+}

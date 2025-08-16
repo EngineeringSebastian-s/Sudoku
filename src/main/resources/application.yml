@@ -32,6 +32,6 @@ springdoc:
     # Habilitar o deshabilitar la UI de Swagger
     enabled: true
     # Path para acceder a Swagger UI
-    path: /
+    path: /doc
     # URL donde se encuentra la documentación de la API en formato OpenAPI
     url: /v3/api-docs
