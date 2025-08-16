@@ -11,4 +11,6 @@ public interface ISudokuService {
      * Genera una matriz vacía de N×N para el tablero de sudoku
      */
     String[][] generateBoard(int n);
+
+    String[][] generateSolvedBoard(int size);
 }

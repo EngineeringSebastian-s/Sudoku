@@ -29,4 +29,19 @@ public class SudokuController {
 
         return "board";
     }
+
+    @GetMapping("/{size}/resolver")
+    public String solveSudoku(@PathVariable("size") int size, Model model) {
+        int[] rc = sudokuService.calculateSegmentRC(size);
+        String[][] board = sudokuService.generateSolvedBoard(size);
+
+        model.addAttribute("size", size);
+        model.addAttribute("rows", size);
+        model.addAttribute("cols", size);
+        model.addAttribute("r", rc[0]);
+        model.addAttribute("c", rc[1]);
+        model.addAttribute("board", board);
+
+        return "board";
+    }
 }

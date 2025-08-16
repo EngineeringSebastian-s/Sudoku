@@ -25,6 +25,7 @@
         <label for="c"></label><input id="c" type="number" min="1" th:value="${c}" class="segment-input" />
 
         <button id="build">Crear tablero</button>
+        <button id="solve">Solucionar</button>
         <button id="clear">Limpiar</button>
     </div>
     <div class="board" th:style="'--n:' + ${cols} +';'">
@@ -42,8 +43,7 @@
                            th:data-col="${colStat.index+1}"
                            th:data-row="${rowStat.index+1}"
                            th:id="'cell-' + ${rowStat.index+1} + '-' + ${colStat.index+1}"
-                           th:value="${cell}"
-                           type="text">
+                           th:value="${cell}" type="text">
                 </div>
             </th:block>
         </th:block>
@@ -52,9 +52,15 @@
 <script>
     const sizeSel = document.getElementById('size');
     const buildBtn = document.getElementById('build');
+    const solveBtn = document.getElementById('solve');
     buildBtn.addEventListener('click', () => {
         const n = parseInt(sizeSel.value, 10);
         window.location.href = `/sudoku/${n}`;
+    });
+
+    solveBtn.addEventListener('click', () => {
+        const n = parseInt(sizeSel.value, 10);
+        window.location.href = `/sudoku/${n}/resolver`;
     });
 </script>
 </body>

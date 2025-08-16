@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class MenuController {
 
-    @GetMapping("")
+    @GetMapping({"/", "/menu"})
     public String generateSudoku(Model model) {
         return "menu";
     }
