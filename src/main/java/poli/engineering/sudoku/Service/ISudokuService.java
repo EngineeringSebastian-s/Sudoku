@@ -50,4 +50,6 @@ public interface ISudokuService {
      * @return Una matriz de Strings representando un tablero de Sudoku resuelto.
      */
     String[][] generateSolvedBoard(int size, int r, int c);
+
+    boolean canInsert(int[][] board, int row, int col, int num, int r, int c);
 }
