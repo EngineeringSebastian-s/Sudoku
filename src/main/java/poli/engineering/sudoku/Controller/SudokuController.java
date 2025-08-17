@@ -8,6 +8,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import poli.engineering.sudoku.Service.ISudokuService;
 
+/**
+ * Controlador MVC de Sudoku encargado de manejar las peticiones HTTP relacionadas
+ * con la generación y resolución de tableros de Sudoku.
+ *
+ * <p>Expone endpoints accesibles desde la ruta base <b>/sudoku</b> que permiten:
+ * <ul>
+ *   <li>Generar un tablero vacío de tamaño N×N.</li>
+ *   <li>Generar un tablero resuelto automáticamente mediante backtracking.</li>
+ * </ul>
+ *
+ * <p>Los resultados se envían a la vista <b>board.html</b> mediante el objeto {@link Model}.</p>
+ */
 @Controller
 @RequestMapping("/sudoku")
 public class SudokuController {
@@ -15,6 +27,16 @@ public class SudokuController {
     @Autowired
     private ISudokuService sudokuService;
 
+    /**
+     * Endpoint para generar un tablero vacío de Sudoku de tamaño N×N.
+     *
+     * <p>Este método calcula automáticamente las dimensiones de los segmentos (r, c),
+     * inicializa un tablero vacío y lo envía al modelo para renderizarlo en la vista.</p>
+     *
+     * @param size Tamaño del tablero (N×N), obtenido desde la URL.
+     * @param model Objeto del modelo para pasar datos a la vista.
+     * @return Nombre de la plantilla de la vista a renderizar (board.html).
+     */
     @GetMapping("/{size}")
     public String generateSudoku(@PathVariable("size") int size, Model model) {
         int[] rc = sudokuService.calculateSegmentRC(size);
@@ -30,6 +52,17 @@ public class SudokuController {
         return "board";
     }
 
+    /**
+     * Endpoint para generar un tablero resuelto de Sudoku de tamaño N×N.
+     *
+     * <p>Este método calcula las dimensiones de los segmentos (r, c),
+     * genera un tablero resuelto con backtracking y lo envía al modelo
+     * para mostrarlo en la vista.</p>
+     *
+     * @param size Tamaño del tablero (N×N), obtenido desde la URL.
+     * @param model Objeto del modelo para pasar datos a la vista.
+     * @return Nombre de la plantilla de la vista a renderizar (board.html).
+     */
     @GetMapping("/{size}/resolver")
     public String solveSudoku(@PathVariable("size") int size, Model model) {
         int[] rc = sudokuService.calculateSegmentRC(size);
