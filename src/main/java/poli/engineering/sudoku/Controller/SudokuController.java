@@ -1,12 +1,13 @@
 package poli.engineering.sudoku.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import poli.engineering.sudoku.Service.ISudokuService;
+
+import java.rmi.RemoteException;
 
 /**
  * Controlador MVC de Sudoku encargado de manejar las peticiones HTTP relacionadas
@@ -24,8 +25,11 @@ import poli.engineering.sudoku.Service.ISudokuService;
 @RequestMapping("/sudoku")
 public class SudokuController {
 
-    @Autowired
-    private ISudokuService sudokuService;
+    private final ISudokuService sudokuService;
+
+    public SudokuController(ISudokuService sudokuService) {
+        this.sudokuService = sudokuService;
+    }
 
     /**
      * Endpoint para generar un tablero vacío de Sudoku de tamaño N×N.
@@ -38,7 +42,7 @@ public class SudokuController {
      * @return Nombre de la plantilla de la vista a renderizar (board.html).
      */
     @GetMapping("/{size}")
-    public String generateSudoku(@PathVariable("size") int size, Model model) {
+    public String generateSudoku(@PathVariable("size") int size, Model model) throws RemoteException, IllegalArgumentException {
         int[] rc = sudokuService.calculateSegmentRC(size);
         String[][] board = sudokuService.generateBoard(size);
 
@@ -64,7 +68,7 @@ public class SudokuController {
      * @return Nombre de la plantilla de la vista a renderizar (board.html).
      */
     @GetMapping("/{size}/resolver")
-    public String solveSudoku(@PathVariable("size") int size, Model model) {
+    public String solveSudoku(@PathVariable("size") int size, Model model) throws RemoteException, IllegalArgumentException {
         int[] rc = sudokuService.calculateSegmentRC(size);
         String[][] board = sudokuService.generateSolvedBoard(size, rc[0], rc[1]);
 

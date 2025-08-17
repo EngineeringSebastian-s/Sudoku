@@ -2,6 +2,8 @@ package poli.engineering.sudoku.Service;
 
 import org.springframework.stereotype.Service;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +22,10 @@ import java.util.List;
  * no se repiten números en filas, columnas ni segmentos.</p>
  */
 @Service
-public class SudokuService implements ISudokuService {
+public class SudokuService extends UnicastRemoteObject implements ISudokuService {
+
+    public SudokuService() throws RemoteException {
+    }
 
     /**
      * Calcula las dimensiones de los segmentos (r, c) de un tablero de Sudoku de tamaño N×N.
@@ -32,7 +37,7 @@ public class SudokuService implements ISudokuService {
      * @return Un arreglo {r, c} con las dimensiones del segmento.
      */
     @Override
-    public int[] calculateSegmentRC(int n) {
+    public int[] calculateSegmentRC(int n) throws RemoteException {
         int root = (int) Math.floor(Math.sqrt(n));
         if (root * root == n) {
             return new int[]{root, root};
@@ -53,7 +58,7 @@ public class SudokuService implements ISudokuService {
      * @return Matriz {@code String[][]} con todas las celdas vacías.
      */
     @Override
-    public String[][] generateBoard(int n) {
+    public String[][] generateBoard(int n) throws RemoteException {
         String[][] board = new String[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -77,7 +82,7 @@ public class SudokuService implements ISudokuService {
      * @throws RuntimeException Si no se pudo generar una solución válida.
      */
     @Override
-    public String[][] generateSolvedBoard(int n, int r, int c) {
+    public String[][] generateSolvedBoard(int n, int r, int c) throws RemoteException, IllegalArgumentException {
         if (r * c != n) {
             throw new IllegalArgumentException(
                     "Dimensiones inválidas: r * c debe ser igual a n (" + r + " * " + c + " != " + n + ")"
@@ -165,8 +170,7 @@ public class SudokuService implements ISudokuService {
      * @param c Número de columnas en cada segmento.
      * @return true si el número puede insertarse, false en caso contrario.
      */
-    @Override
-    public boolean canInsert(int[][] board, int row, int col, int num, int r, int c) {
+    private boolean canInsert(int[][] board, int row, int col, int num, int r, int c) {
         for (int i = 0; i < board.length; i++) {
             if (board[row][i] == num) {
                 return false;

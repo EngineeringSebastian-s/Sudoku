@@ -1,5 +1,8 @@
 package poli.engineering.sudoku.Service;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 /**
  * Interfaz que define los métodos esenciales para la gestión de la lógica de un Sudoku,
  * incluyendo la generación de tableros vacíos y resueltos, así como la validación
@@ -18,7 +21,7 @@ package poli.engineering.sudoku.Service;
  *   <li>N=32 → segmentos de 4×8 o 8×4 (dependiendo de la división elegida).</li>
  * </ul>
  */
-public interface ISudokuService {
+public interface ISudokuService extends Remote {
 
     /**
      * Calcula las dimensiones de los segmentos de un tablero de Sudoku de tamaño {@code N×N}.
@@ -36,7 +39,7 @@ public interface ISudokuService {
      * @param n Tamaño del tablero de Sudoku (debe ser un entero positivo).
      * @return Un array de dos enteros: {@code [r, c]} indicando las dimensiones del segmento.
      */
-    int[] calculateSegmentRC(int n);
+    int[] calculateSegmentRC(int n) throws RemoteException;
 
     /**
      * Genera un tablero vacío de Sudoku de tamaño {@code N×N}.
@@ -47,7 +50,7 @@ public interface ISudokuService {
      * @param n Tamaño del tablero (N×N).
      * @return Una matriz {@code String[][]} representando un tablero vacío.
      */
-    String[][] generateBoard(int n);
+    String[][] generateBoard(int n) throws RemoteException;
 
     /**
      * Genera un tablero de Sudoku completamente resuelto de tamaño {@code N×N},
@@ -72,19 +75,5 @@ public interface ISudokuService {
      * @return Una matriz {@code String[][]} representando un tablero de Sudoku resuelto.
      * @throws IllegalArgumentException si {@code r × c ≠ size}.
      */
-    String[][] generateSolvedBoard(int size, int r, int c);
-
-    /**
-     * Verifica si un número puede insertarse en una celda específica del tablero
-     * sin violar las reglas del Sudoku.
-     *
-     * @param board El tablero actual de Sudoku (matriz {@code int[][]}).
-     * @param row Fila de la celda a validar (0-indexado).
-     * @param col Columna de la celda a validar (0-indexado).
-     * @param num Número a insertar (entre 1 y N).
-     * @param r Número de filas en cada segmento.
-     * @param c Número de columnas en cada segmento.
-     * @return {@code true} si el número puede insertarse sin violar las reglas, {@code false} en caso contrario.
-     */
-    boolean canInsert(int[][] board, int row, int col, int num, int r, int c);
+    String[][] generateSolvedBoard(int size, int r, int c) throws RemoteException, IllegalArgumentException;
 }
