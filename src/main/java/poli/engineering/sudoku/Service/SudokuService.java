@@ -1,7 +1,5 @@
 package poli.engineering.sudoku.Service;
 
-import org.springframework.stereotype.Service;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -21,10 +19,10 @@ import java.util.List;
  * para resolver el tablero, asegurando que todas las reglas del Sudoku se cumplan:
  * no se repiten números en filas, columnas ni segmentos.</p>
  */
-@Service
 public class SudokuService extends UnicastRemoteObject implements ISudokuService {
 
     public SudokuService() throws RemoteException {
+        super();
     }
 
     /**
