@@ -53,6 +53,7 @@
     const sizeSel = document.getElementById('size');
     const buildBtn = document.getElementById('build');
     const solveBtn = document.getElementById('solve');
+    const clearBtn = document.getElementById('clear');
     buildBtn.addEventListener('click', () => {
         const n = parseInt(sizeSel.value, 10);
         window.location.href = `/sudoku/${n}`;
@@ -61,6 +62,10 @@
     solveBtn.addEventListener('click', () => {
         const n = parseInt(sizeSel.value, 10);
         window.location.href = `/sudoku/${n}/resolver`;
+    });
+    clearBtn.addEventListener('click', () => {
+        const n = parseInt(sizeSel.value, 10);
+        window.location.href = `/sudoku/${n}`;
     });
 </script>
 </body>
