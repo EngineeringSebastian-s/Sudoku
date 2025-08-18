@@ -35,3 +35,37 @@ En un sistema de procesamiento de transacciones financieras, al iniciarse una nu
 - Un **Servicio de Notificaciones** consume el mensaje para alertar a las partes interesadas.  
 
 Este diseño asegura que la transacción se registre en todos los sistemas pertinentes de forma paralela y fiable, sin acoplar el servicio de origen a la lógica interna de los sistemas consumidores.
+
+## 5. Ejemplo de Código (RabbitMQ en Python)
+
+### Consumidor (recibe mensajes de la cola)
+```python
+import pika
+
+# Conexión al broker
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
+
+# Declarar cola
+channel.queue_declare(queue='hola_mundo')
+
+# Función callback para recibir mensajes
+def callback(ch, method, properties, body):
+    print(f" [x] Recibido: {body.decode()}")
+
+# Suscribir consumidor
+channel.basic_consume(queue='hola_mundo',
+                      on_message_callback=callback,
+                      auto_ack=True)
+
+print(" [*] Esperando mensajes. Presione CTRL+C para salir")
+channel.start_consuming()
+```
+
+## 6. Bibliografía
+- Chappell, D. A. (2004). *Enterprise Service Bus*. O'Reilly Media.  
+- Kreps, J., Narkhede, N., & Rao, J. (2011). *Kafka: a Distributed Messaging System for Log Processing*. LinkedIn.  
+- Hohpe, G., & Woolf, B. (2003). *Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions*. Addison-Wesley.  
+- Documentation RabbitMQ. Recuperado de: [https://www.rabbitmq.com/](https://www.rabbitmq.com/)  
+- Documentation Apache Kafka. Recuperado de: [https://kafka.apache.org/documentation/](https://kafka.apache.org/documentation/)  
+
