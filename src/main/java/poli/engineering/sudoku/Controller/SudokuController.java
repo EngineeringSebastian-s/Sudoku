@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import poli.engineering.sudoku.Service.ISudokuService;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
@@ -27,8 +30,9 @@ public class SudokuController {
 
     private final ISudokuService sudokuService;
 
-    public SudokuController(ISudokuService sudokuService) {
-        this.sudokuService = sudokuService;
+    public SudokuController(ISudokuService sudokuService) throws MalformedURLException, NotBoundException, RemoteException {
+        this.sudokuService = (ISudokuService) Naming.lookup("rmi://localhost:1099/SudokuService");
+        System.out.println("🔗 Conectado a SudokuService vía RMI");
     }
 
     /**
