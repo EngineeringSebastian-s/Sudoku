@@ -79,7 +79,7 @@ public class SudokuService extends UnicastRemoteObject implements ISudokuService
      * @param c Número de columnas en cada segmento (debe cumplirse {@code r × c = n}).
      * @return Una matriz {@code String[][]} representando un tablero resuelto.
      * @throws IllegalArgumentException Si {@code r × c ≠ n}.
-     * @throws RuntimeException Si no se pudo generar una solución válida.
+     * @throws RuntimeException         Si no se pudo generar una solución válida.
      */
     @Override
     public String[][] generateSolvedBoard(int n, int r, int c) throws RemoteException, IllegalArgumentException {
@@ -114,9 +114,9 @@ public class SudokuService extends UnicastRemoteObject implements ISudokuService
      * Intenta colocar números válidos en las celdas vacías de forma recursiva.
      *
      * @param board Tablero actual en construcción.
-     * @param n Tamaño del tablero.
-     * @param r Número de filas en cada segmento.
-     * @param c Número de columnas en cada segmento.
+     * @param n     Tamaño del tablero.
+     * @param r     Número de filas en cada segmento.
+     * @param c     Número de columnas en cada segmento.
      * @return true si el tablero pudo resolverse completamente, false en caso contrario.
      */
     private boolean solveBoard(int[][] board, int n, int r, int c) {
@@ -163,11 +163,11 @@ public class SudokuService extends UnicastRemoteObject implements ISudokuService
      * las reglas del Sudoku (filas, columnas y segmentos).
      *
      * @param board Tablero actual de Sudoku.
-     * @param row Fila de la celda (0-indexado).
-     * @param col Columna de la celda (0-indexado).
-     * @param num Número a insertar (1..N).
-     * @param r Número de filas en cada segmento.
-     * @param c Número de columnas en cada segmento.
+     * @param row   Fila de la celda (0-indexado).
+     * @param col   Columna de la celda (0-indexado).
+     * @param num   Número a insertar (1..N).
+     * @param r     Número de filas en cada segmento.
+     * @param c     Número de columnas en cada segmento.
      * @return true si el número puede insertarse, false en caso contrario.
      */
     private boolean canInsert(int[][] board, int row, int col, int num, int r, int c) {

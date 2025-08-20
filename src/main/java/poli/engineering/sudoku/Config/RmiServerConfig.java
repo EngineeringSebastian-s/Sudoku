@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import poli.engineering.sudoku.Service.ISudokuService;
 import poli.engineering.sudoku.Service.SudokuService;
 
-import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 

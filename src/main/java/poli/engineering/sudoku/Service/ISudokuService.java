@@ -70,8 +70,8 @@ public interface ISudokuService extends Remote {
      * </pre>
      *
      * @param size Tamaño del tablero (N×N).
-     * @param r Número de filas de cada segmento (debe cumplir {@code r × c = size}).
-     * @param c Número de columnas de cada segmento (debe cumplir {@code r × c = size}).
+     * @param r    Número de filas de cada segmento (debe cumplir {@code r × c = size}).
+     * @param c    Número de columnas de cada segmento (debe cumplir {@code r × c = size}).
      * @return Una matriz {@code String[][]} representando un tablero de Sudoku resuelto.
      * @throws IllegalArgumentException si {@code r × c ≠ size}.
      */

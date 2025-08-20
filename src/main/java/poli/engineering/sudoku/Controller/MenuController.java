@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Este controlador gestiona las rutas iniciales del proyecto
  * y redirige al usuario a la vista del menú principal.
  * </p>
- *
+ * <p>
  * Anotaciones utilizadas:
  * <ul>
  *   <li>{@code @Controller}: Define la clase como un controlador Spring MVC.</li>

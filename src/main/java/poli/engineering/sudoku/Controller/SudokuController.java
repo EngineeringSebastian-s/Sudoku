@@ -37,7 +37,7 @@ public class SudokuController {
      * <p>Este método calcula automáticamente las dimensiones de los segmentos (r, c),
      * inicializa un tablero vacío y lo envía al modelo para renderizarlo en la vista.</p>
      *
-     * @param size Tamaño del tablero (N×N), obtenido desde la URL.
+     * @param size  Tamaño del tablero (N×N), obtenido desde la URL.
      * @param model Objeto del modelo para pasar datos a la vista.
      * @return Nombre de la plantilla de la vista a renderizar (board.html).
      */
@@ -63,7 +63,7 @@ public class SudokuController {
      * genera un tablero resuelto con backtracking y lo envía al modelo
      * para mostrarlo en la vista.</p>
      *
-     * @param size Tamaño del tablero (N×N), obtenido desde la URL.
+     * @param size  Tamaño del tablero (N×N), obtenido desde la URL.
      * @param model Objeto del modelo para pasar datos a la vista.
      * @return Nombre de la plantilla de la vista a renderizar (board.html).
      */
